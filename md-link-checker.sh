@@ -2,6 +2,12 @@
 
 links=$(grep -ioP "\(http?s://[^\s:,]+\)" "$1" | sed 's/(//g; s/)//g')
 
+# Exit if no links were found in markdown file
+if [ -z "$links" ]; then
+    echo "No links found in $1"
+    exit 0
+fi
+
 # Output colors
 txtbnd=$(tput bold)
 bldred=${txtbld}$(tput setaf 1)
@@ -13,6 +19,7 @@ txtrst=$(tput sgr0)
 echo -e "Status\t| Link"
 echo -e "---------------"
 
+# Check each link
 i=0; good_count=0; bad_count=0; redirect_count=0
 while read link; do
     status_code=$(curl -sw "%{http_code}" -o /dev/null "$link")
@@ -36,4 +43,5 @@ echo -e "\nChecked $i links in $1"
 echo -e "$bldgreen$good_count$txtrst\tgood links"
 echo -e "$bldred$bad_count$txtrst\tbad links"
 echo -e "$bldyellow$redirect_count$txtrst\tredirects"
+echo ""
 
