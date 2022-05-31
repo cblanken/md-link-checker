@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Usage
+if [ "$#" -ne 1 ]; then
+    echo -e "Usage: ./md-link-checker.sh <file.md>\n"
+    exit 0
+fi
+
 links=$(grep -ioP "\(http?s://[^\s:,]+\)" "$1" | sed 's/(//g; s/)//g')
 
 # Exit if no links were found in markdown file
@@ -50,7 +56,3 @@ done <<< "$links"
 
 wait
 echo -e "\nChecked $i links in $1\n"
-#echo -e "$bldgreen$good_count$txtrst\tgood links"
-#echo -e "$bldred$bad_count$txtrst\tbad links"
-#echo -e "$bldyellow$redirect_count$txtrst\tredirects"
-#echo ""
