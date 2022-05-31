@@ -1,7 +1,4 @@
-# link-checker
-Scripts and programs for checking the status of links in markdown files to identify link rot.
-
-## BASH
+# md-link-checker
 ### Usage
 ```console
 $ ./md-link-checker.sh
@@ -39,9 +36,10 @@ Status  | Link
 200     | https://nordvpn.com/blog/bluesnarfing/
 
 Checked 27 links in ./comptia/sec+/1-threats-attacks-and-vulns.md
+```
 
-
-# Run link checker on all markdown files in ~/notes/ and filtering files w/o links
+- Run link checker on all markdown files in ~/notes/ and filtering files w/o links
+```console
 $ ls ~/notes/*.md | xargs -I {} ./md-link-checker.sh {} | grep -v "No links found"
 ```
 
