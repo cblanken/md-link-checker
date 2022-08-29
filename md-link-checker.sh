@@ -44,27 +44,21 @@ while read -r link; do
         status_code_category="${status_code:0:1}"
         if [ "$status_code_category" -eq "1" ]; then
             echo -e "$status_code\t| $bldwhite$link$txtrst"
-            info_cnt=$((info_cnt+1))
             exit 1
         elif [ "$status_code_category" -eq "2" ]; then
             echo -e "$status_code\t| $bldgreen$link$txtrst"
-            success_cnt=$((success_cnt+1))
             exit 2
         elif [ "$status_code_category" -eq "3" ]; then
             echo -e "$status_code\t| $bldyellow$link$txtrst"
-            redirect_cnt=$((redirect_cnt+1))
             exit 3
         elif [ "$status_code_category" -eq "4" ]; then
             echo -e "$status_code\t| $bldmagenta$link$txtrst"
-            client_err_cnt=$((client_err_cnt+1))
             exit 4
         elif [ "$status_code_category" -eq "5" ]; then
             echo -e "$status_code\t| $bldred$link$txtrst"
-            server_err_cnt=$((server_err_cnt+1))
             exit 5
         else
             echo -e "$status_code\t| $bldcyan$link$txtrst"
-            unknown_cnt=$((unkwnown_cnt+1))
             exit 6
         fi
     }& # Fork each execution to skip waiting for curl on each iteration
