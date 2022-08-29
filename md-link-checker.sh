@@ -1,6 +1,10 @@
 #!/bin/bash
 set -a
 
+# TODO: handle Ctrl+C signal
+# TODO: error handling
+# TODO: allow entry of directory and automatic markdown file search
+
 # Usage
 if [ "$#" -ne 1 ]; then
     echo -e "Usage: ./md-link-checker.sh <file.md>\n"
