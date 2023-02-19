@@ -5,17 +5,29 @@ set -a
 # TODO: error handling
 # TODO: allow entry of directory and automatic markdown file search
 
+file="$1"
+mode="$2"
+
+echo "$file"
+echo "$mode"
+echo "$#"
+
 # Usage
-if [ "$#" -ne 1 ]; then
-    echo -e "Usage: ./md-link-checker.sh <file.md>\n"
+if [ "$#" -eq 2 ] && [ "$mode" == "txt" ]; then
+    links=$(grep -iP "http?s://" "$file")
+elif [ "$#" -eq 1 ] || [ "$mode" == "md" ]; then
+    links=$(grep -ioP "\(http?s://[^\s:,]+\)" "$file" | sed 's/(//g; s/)//g')
+else
+    echo -e "Usage: ./md-link-checker.sh <file.md> [mode]"
+    echo -e "Modes:"
+    echo -e "  - md [default]: parse links from Markdown file"
+    echo -e "  - txt: parse links from text file (one link per line)"
     exit 0
 fi
 
-links=$(grep -ioP "\(http?s://[^\s:,]+\)" "$1" | sed 's/(//g; s/)//g')
-
-# Exit if no links were found in markdown file
+# Exit if no links were found in file
 if [ -z "$links" ]; then
-    echo "No links found in $1"
+    echo "No links found in $file"
     exit 0
 fi
 
@@ -30,7 +42,7 @@ bldcyan=${txtbld}$(tput setaf 6)
 bldwhite=${txtbld}$(tput setaf 7)
 txtrst=$(tput sgr0)
 
-printf "\nChecking links in $1...\n"
+printf "\nChecking links in $file...\n"
 echo -e "---------------"
 echo -e "Status\t| Link"
 echo -e "---------------"
