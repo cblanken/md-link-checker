@@ -52,7 +52,7 @@ info_cnt=0; success_cnt=0; redirect_cnt=0; client_err_cnt=0; server_err_cnt=0; u
 while read -r link; do
     i=$((i+1))
     {
-        status_code=$(curl -Lsw "%{http_code}" -o /dev/null "$link")
+        status_code=$(curl -H "Accept-Charset: utf-8" -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0" -Lsw "%{http_code}" -o /dev/null "$link")
         status_code_category="${status_code:0:1}"
         if [ "$status_code_category" -eq "1" ]; then
             echo -e "$status_code\t| $bldwhite$link$txtrst"
