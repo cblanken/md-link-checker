@@ -8,10 +8,6 @@ set -a
 file="$1"
 mode="$2"
 
-echo "$file"
-echo "$mode"
-echo "$#"
-
 # Usage
 if [ "$#" -eq 2 ] && [ "$mode" == "txt" ]; then
     links=$(grep -iP "http?s://" "$file")
