@@ -16,7 +16,7 @@ echo "$#"
 if [ "$#" -eq 2 ] && [ "$mode" == "txt" ]; then
     links=$(grep -iP "http?s://" "$file")
 elif [ "$#" -eq 1 ] || [ "$mode" == "md" ]; then
-    links=$(grep -ioP "\(http?s://[^\s:,]+\)" "$file" | sed 's/(//g; s/)//g')
+    links=$(grep -ioP "\(https?://[^\s:,]+\)" "$file" | sed 's/(//g; s/)//g')
 else
     echo -e "Usage: ./md-link-checker.sh <file.md> [mode]"
     echo -e "Modes:"
